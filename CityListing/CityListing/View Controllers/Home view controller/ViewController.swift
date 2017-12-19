@@ -34,7 +34,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     private func setUpUIElements(){
         buttonSort.isEnabled = arrayCity.count > 0 ? true : false
         
-        tableviewHome.estimatedRowHeight = 50.0
+        tableviewHome.estimatedRowHeight = 62.0
         tableviewHome.rowHeight = UITableViewAutomaticDimension
     }
     
@@ -56,12 +56,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         //Use weak self to avoid retain cycle
         let buttonAscending = UIAlertAction(title: "Ascending", style: .default) { [weak self]action in
-            self?.arrayCity.sort{ $0.countryId! < $1.countryId! }
+            self?.arrayCity.sort{ $0.population! < $1.population! }
             self?.tableviewHome.reloadData()
         }
         
         let buttonDescending = UIAlertAction(title: "Descending", style: .default) { [weak self]action in
-            self?.arrayCity.sort{ $0.countryId! > $1.countryId! }
+            self?.arrayCity.sort{ $0.population! > $1.population! }
             self?.tableviewHome.reloadData()
         }
         
@@ -87,18 +87,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellIdentifier = "cellReuseIdentifierN"
-        var cell:UITableViewCell? = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)
-        
-        if (cell == nil){
-            cell = UITableViewCell(style: .default, reuseIdentifier: cellIdentifier)
-            cell?.accessoryType = .disclosureIndicator
-            cell?.textLabel?.numberOfLines = 0
-        }
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell") as! HomeTableViewCell
         let cityData = arrayCity[indexPath.row]
-        cell?.textLabel?.text = cityData.name
-        return cell!
+        cell.configureCellWithData(cityData: cityData)
+        
+        return cell
     }
         
 }

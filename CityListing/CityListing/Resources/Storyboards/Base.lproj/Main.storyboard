@@ -24,6 +24,42 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="BIS-XJ-qyd">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HomeTableViewCell" rowHeight="62" id="JqN-PF-n5u" customClass="HomeTableViewCell" customModule="CityListing" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="62"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JqN-PF-n5u" id="PvX-pZ-99f">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="62"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label asdasfa dsgs sgdfgdf fdgdf s" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="359" translatesAutoresizingMaskIntoConstraints="NO" id="etf-8D-X6a">
+                                                    <rect key="frame" x="8" y="8" width="359" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Population: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="76J-9x-Tsv">
+                                                    <rect key="frame" x="8" y="36.5" width="76.5" height="17"/>
+                                                    <fontDescription key="fontDescription" type="italicSystem" pointSize="14"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="76J-9x-Tsv" secondAttribute="bottom" constant="8" id="Ut3-RI-he3"/>
+                                                <constraint firstItem="etf-8D-X6a" firstAttribute="top" secondItem="PvX-pZ-99f" secondAttribute="top" constant="8" id="We0-m9-UIV"/>
+                                                <constraint firstAttribute="trailing" secondItem="etf-8D-X6a" secondAttribute="trailing" constant="8" id="Zxl-lo-3E1"/>
+                                                <constraint firstItem="76J-9x-Tsv" firstAttribute="top" secondItem="etf-8D-X6a" secondAttribute="bottom" constant="8" id="cKY-0s-h4X"/>
+                                                <constraint firstItem="etf-8D-X6a" firstAttribute="leading" secondItem="PvX-pZ-99f" secondAttribute="leading" constant="8" id="n8L-zA-BDB"/>
+                                                <constraint firstItem="76J-9x-Tsv" firstAttribute="leading" secondItem="PvX-pZ-99f" secondAttribute="leading" constant="8" id="xCK-bh-3CV"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="labelCityName" destination="etf-8D-X6a" id="fB7-Nc-wnQ"/>
+                                            <outlet property="labelCityPopulation" destination="76J-9x-Tsv" id="bQy-xt-YGr"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="eDC-NG-c8y"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="dzL-ou-1eu"/>
