@@ -12,6 +12,9 @@
 		416C76BC1FE9832500B9BA62 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 416C76B81FE9832500B9BA62 /* LaunchScreen.storyboard */; };
 		416C76BD1FE9832500B9BA62 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 416C76BA1FE9832500B9BA62 /* Main.storyboard */; };
 		416C76C01FE9834600B9BA62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 416C76BF1FE9834600B9BA62 /* Assets.xcassets */; };
+		416C76C71FE9848D00B9BA62 /* CityListing.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 416C76C51FE9848D00B9BA62 /* CityListing.xcdatamodeld */; };
+		416C76C91FE9886600B9BA62 /* PersistanceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416C76C81FE9886600B9BA62 /* PersistanceService.swift */; };
+		416C76CB1FE9890200B9BA62 /* City.csv in Resources */ = {isa = PBXBuildFile; fileRef = 416C76CA1FE9890200B9BA62 /* City.csv */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +25,9 @@
 		416C76BB1FE9832500B9BA62 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		416C76BF1FE9834600B9BA62 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		416C76C21FE9836000B9BA62 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		416C76C61FE9848D00B9BA62 /* CityListing.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CityListing.xcdatamodel; sourceTree = "<group>"; };
+		416C76C81FE9886600B9BA62 /* PersistanceService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistanceService.swift; sourceTree = "<group>"; };
+		416C76CA1FE9890200B9BA62 /* City.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = City.csv; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +60,7 @@
 		416C769D1FE9825400B9BA62 /* CityListing */ = {
 			isa = PBXGroup;
 			children = (
+				416C76C41FE9845C00B9BA62 /* Data base (Core data) */,
 				416C76B61FE9832500B9BA62 /* Resources */,
 				416C76B01FE982DE00B9BA62 /* View Controllers */,
 			);
@@ -110,6 +117,16 @@
 				416C76C21FE9836000B9BA62 /* Info.plist */,
 			);
 			path = Plists;
+			sourceTree = "<group>";
+		};
+		416C76C41FE9845C00B9BA62 /* Data base (Core data) */ = {
+			isa = PBXGroup;
+			children = (
+				416C76CA1FE9890200B9BA62 /* City.csv */,
+				416C76C81FE9886600B9BA62 /* PersistanceService.swift */,
+				416C76C51FE9848D00B9BA62 /* CityListing.xcdatamodeld */,
+			);
+			path = "Data base (Core data)";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -173,6 +190,7 @@
 			files = (
 				416C76BD1FE9832500B9BA62 /* Main.storyboard in Resources */,
 				416C76C01FE9834600B9BA62 /* Assets.xcassets in Resources */,
+				416C76CB1FE9890200B9BA62 /* City.csv in Resources */,
 				416C76BC1FE9832500B9BA62 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -184,6 +202,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				416C76C71FE9848D00B9BA62 /* CityListing.xcdatamodeld in Sources */,
+				416C76C91FE9886600B9BA62 /* PersistanceService.swift in Sources */,
 				416C76B51FE982F300B9BA62 /* AppDelegate.swift in Sources */,
 				416C76B31FE982DE00B9BA62 /* ViewController.swift in Sources */,
 			);
@@ -349,8 +369,22 @@
 				416C76AF1FE9825400B9BA62 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		416C76C51FE9848D00B9BA62 /* CityListing.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				416C76C61FE9848D00B9BA62 /* CityListing.xcdatamodel */,
+			);
+			currentVersion = 416C76C61FE9848D00B9BA62 /* CityListing.xcdatamodel */;
+			path = CityListing.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 416C76931FE9825400B9BA62 /* Project object */;
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,8 +15,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
 
+    //MARK:- App delegate methods
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        //Load the data once only. To accomplish this, keep a bool variable
+        let defaults = UserDefaults.standard
+        let isPreloaded = defaults.bool(forKey: "isPreloaded")
+        if !isPreloaded {
+            preloadDataFromCSV()
+            defaults.set(true, forKey: "isPreloaded")
+        }
         return true
     }
 
@@ -41,6 +50,109 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    //MARK:- Data fetching from CSV and saving in core data
+    
+    //Load the data from (static)CSV file
+    private func preloadDataFromCSV() {
+        if let contentsOfURL = Bundle.main.url(forResource: "City", withExtension: "csv") {
+            removeData()          // Remove all the data before preloading to avoid duplicacy
+            
+            if let items = parseCSV(contentsOfURL: contentsOfURL as NSURL, encoding: String.Encoding.utf8) {
+                let managedObjectContext = PersistanceService.persistentContainer.viewContext
+                
+                for item in items {
+                    let menuItem = NSEntityDescription.insertNewObject(forEntityName: "City", into: managedObjectContext) as! City
+                    menuItem.name = item.name
+                    do{
+                        try managedObjectContext.save()
+                    }catch{
+                        print("insert error: \(error.localizedDescription)")
+                    }
+                }
+            }
+        }
+    }
+    
+    // Remove the existing items
+    func removeData () {
+        let managedObjectContext = PersistanceService.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "City")
+        
+        do{
+            let menuItems = try managedObjectContext.fetch(fetchRequest) as! [City]
+            
+            if !menuItems.isEmpty{
+                for menuItem in menuItems {
+                    managedObjectContext.delete(menuItem)
+                }
+            }else{
+                print("No menu item to delete")
+            }
+        }catch{
+            print("error at remove data \(error)")
+        }
+    }
+
+    // Load the CSV file and parse it
+    //Parameters
+        //  contentsOfURL: csv file path url
+        //  encoding: Type of encoding
+    func parseCSV (contentsOfURL: NSURL, encoding: String.Encoding) -> [(name:String, detail:String, price: String)]? {
+        let delimiter = ","
+        var items:[(name:String, detail:String, price: String)]?
+        
+        if let data = NSData(contentsOf: contentsOfURL as URL){
+            if let content = NSString(data: data as Data, encoding: encoding.rawValue) {
+                items = []
+                let lines:[String] = content.components(separatedBy: NSCharacterSet.newlines) as [String]
+                
+                for line in lines {
+                    var values:[String] = []
+                    if line != "" {
+                        // Use NSScanner to perform the parsing(line with double quotes)
+                        
+                        let range = line.range(of: "\"")
+                        if range != nil{
+                            var textToScan:String = line
+                            var value:NSString?
+                            var textScanner:Scanner = Scanner(string: textToScan)
+                            while textScanner.string != "" {
+                                
+                                if (textScanner.string as NSString).substring(to: 1) == "\"" {
+                                    textScanner.scanLocation += 1
+                                    textScanner.scanUpTo("\"", into: &value)
+                                    textScanner.scanLocation += 1
+                                } else {
+                                    textScanner.scanUpTo(delimiter, into: &value)
+                                }
+                                
+                                // Store the value into the values array
+                                values.append(value! as String)
+                                
+                                // Retrieve the unscanned remainder of the string
+                                if textScanner.scanLocation < textScanner.string.characters.count {
+                                    textToScan = (textScanner.string as NSString).substring(from: textScanner.scanLocation + 1)
+                                } else {
+                                    textToScan = ""
+                                }
+                                textScanner = Scanner(string: textToScan)
+                            }
+                            
+                            // For a line without double quotes, we can simply separate the string by using the delimiter (e.g. comma)
+                        } else  {
+                            values = line.components(separatedBy: delimiter)
+                        }
+                        
+                        // Put the values into the tuple and add it to the items array
+                        let item = (name: values[0], detail: values[1], price: values[2])
+                        items?.append(item)
+                    }
+                }
+            }
+        }
+        
+        return items
+    }
 
 }
 
