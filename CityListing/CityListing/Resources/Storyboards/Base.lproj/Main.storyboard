@@ -44,17 +44,26 @@
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2AY-HR-p9K">
+                                                    <rect key="frame" x="331.5" y="36.5" width="35.5" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="2AY-HR-p9K" firstAttribute="trailing" secondItem="etf-8D-X6a" secondAttribute="trailing" id="6vB-Cq-0N5"/>
                                                 <constraint firstAttribute="bottom" secondItem="76J-9x-Tsv" secondAttribute="bottom" constant="8" id="Ut3-RI-he3"/>
                                                 <constraint firstItem="etf-8D-X6a" firstAttribute="top" secondItem="PvX-pZ-99f" secondAttribute="top" constant="8" id="We0-m9-UIV"/>
                                                 <constraint firstAttribute="trailing" secondItem="etf-8D-X6a" secondAttribute="trailing" constant="8" id="Zxl-lo-3E1"/>
                                                 <constraint firstItem="76J-9x-Tsv" firstAttribute="top" secondItem="etf-8D-X6a" secondAttribute="bottom" constant="8" id="cKY-0s-h4X"/>
+                                                <constraint firstItem="2AY-HR-p9K" firstAttribute="centerY" secondItem="76J-9x-Tsv" secondAttribute="centerY" id="mZ4-NB-Fle"/>
                                                 <constraint firstItem="etf-8D-X6a" firstAttribute="leading" secondItem="PvX-pZ-99f" secondAttribute="leading" constant="8" id="n8L-zA-BDB"/>
                                                 <constraint firstItem="76J-9x-Tsv" firstAttribute="leading" secondItem="PvX-pZ-99f" secondAttribute="leading" constant="8" id="xCK-bh-3CV"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="labelCityCountry" destination="2AY-HR-p9K" id="urH-A9-6zu"/>
                                             <outlet property="labelCityName" destination="etf-8D-X6a" id="fB7-Nc-wnQ"/>
                                             <outlet property="labelCityPopulation" destination="76J-9x-Tsv" id="bQy-xt-YGr"/>
                                         </connections>

@@ -99,6 +99,5 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         cityDetailViewController.cityData = arrayCity[indexPath.row]
         self.navigationController?.pushViewController(cityDetailViewController, animated: true)
     }
-        
+    
 }
-

@@ -13,6 +13,7 @@ class HomeTableViewCell: UITableViewCell {
     //MARK:- Properties
     @IBOutlet weak var labelCityName: UILabel!
     @IBOutlet weak var labelCityPopulation: UILabel!
+    @IBOutlet weak var labelCityCountry: UILabel!
     
     
     override func awakeFromNib() {
@@ -28,6 +29,7 @@ class HomeTableViewCell: UITableViewCell {
     {
         labelCityName.text = cityData.name
         labelCityPopulation.text = "Population: \(cityData.population ?? "0")"
+        labelCityCountry.text = cityData.country
     }
     
 }
