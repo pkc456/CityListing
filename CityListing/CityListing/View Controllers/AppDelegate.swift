@@ -65,6 +65,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     menuItem.countryId = item.countryId
                     menuItem.name = item.name
                     menuItem.population = item.population
+                    menuItem.country = item.country
+                    menuItem.timezone = item.timezone
                     do{
                         try managedObjectContext.save()
                     }catch{
@@ -99,9 +101,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //Parameters
         //  contentsOfURL: csv file path url
         //  encoding: Type of encoding
-    func parseCSV (contentsOfURL: NSURL, encoding: String.Encoding) -> [(countryId: String, name:String, population:String)]? {
+    func parseCSV (contentsOfURL: NSURL, encoding: String.Encoding) -> [(countryId: String, name:String, population:String, country:String, timezone:String)]? {
         let delimiter = ","
-        var items:[(countryId: String, name:String, population:String)]?
+        var items:[(countryId: String, name:String, population:String, country:String, timezone:String)]?
         
         if let data = NSData(contentsOf: contentsOfURL as URL){
             if let content = NSString(data: data as Data, encoding: encoding.rawValue) {
@@ -146,7 +148,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         }
                         
                         // Put the values into the tuple and add it to the items array
-                        let item = (countryId: values[0], name: values[1], population: values[16])
+                        let item = (countryId: values[0], name: values[1], population: values[16], country: values[17], timezone: values[18])
                         items?.append(item)
                     }
                 }
