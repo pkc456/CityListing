@@ -39,12 +39,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     private func loadDataFromDatabase(){
         
         let managedObjectContext = PersistanceService.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "City")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: DATBASE.CityEntityName)
         do {
             arrayCity = try managedObjectContext.fetch(fetchRequest) as! [City]
         } catch {
-            print("Failed to retrieve record")
-            print(error)
+            print("Failed to retrieve record because: \(error)")            
         }
     }
 

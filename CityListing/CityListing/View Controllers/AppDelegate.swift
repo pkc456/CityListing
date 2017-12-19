@@ -14,16 +14,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     //MARK:- App delegate methods
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         //Load the data once only. To accomplish this, keep a bool variable
         let defaults = UserDefaults.standard
-        let isPreloaded = defaults.bool(forKey: "isPreloaded")
+        let isPreloaded = defaults.bool(forKey: CONSTANT.IsDataPreloaded)
         if !isPreloaded {
             preloadDataFromCSV()
-            defaults.set(true, forKey: "isPreloaded")
+            defaults.set(true, forKey: CONSTANT.IsDataPreloaded)
         }
         return true
     }
@@ -54,14 +53,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     //Load the data from (static)CSV file
     private func preloadDataFromCSV() {
-        if let contentsOfURL = Bundle.main.url(forResource: "City", withExtension: "csv") {
+        if let contentsOfURL = Bundle.main.url(forResource: DATBASE.CityEntityName, withExtension: "csv") {
             removeData()          // Remove all the data before preloading to avoid duplicacy
             
             if let items = parseCSV(contentsOfURL: contentsOfURL as NSURL, encoding: String.Encoding.utf8) {
                 let managedObjectContext = PersistanceService.persistentContainer.viewContext
                 
                 for item in items {
-                    let menuItem = NSEntityDescription.insertNewObject(forEntityName: "City", into: managedObjectContext) as! City
+                    let menuItem = NSEntityDescription.insertNewObject(forEntityName: DATBASE.CityEntityName, into: managedObjectContext) as! City
                     menuItem.name = item.name
                     do{
                         try managedObjectContext.save()
@@ -76,7 +75,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Remove the existing items
     func removeData () {
         let managedObjectContext = PersistanceService.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "City")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: DATBASE.CityEntityName)
         
         do{
             let menuItems = try managedObjectContext.fetch(fetchRequest) as! [City]
@@ -86,7 +85,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     managedObjectContext.delete(menuItem)
                 }
             }else{
-                print("No menu item to delete")
+                print("No item to delete")
             }
         }catch{
             print("error at remove data \(error)")
@@ -97,9 +96,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //Parameters
         //  contentsOfURL: csv file path url
         //  encoding: Type of encoding
-    func parseCSV (contentsOfURL: NSURL, encoding: String.Encoding) -> [(name:String, detail:String, price: String)]? {
+    func parseCSV (contentsOfURL: NSURL, encoding: String.Encoding) -> [(countryId: String, name:String)]? {
         let delimiter = ","
-        var items:[(name:String, detail:String, price: String)]?
+        var items:[(countryId: String, name:String)]?
         
         if let data = NSData(contentsOf: contentsOfURL as URL){
             if let content = NSString(data: data as Data, encoding: encoding.rawValue) {
@@ -144,7 +143,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         }
                         
                         // Put the values into the tuple and add it to the items array
-                        let item = (name: values[0], detail: values[1], price: values[2])
+                        let item = (countryId: values[0], name: values[1])
                         items?.append(item)
                     }
                 }
@@ -155,4 +154,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 }
-
