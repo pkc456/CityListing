@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             preloadDataFromCSV()
             defaults.set(true, forKey: CONSTANT.IsDataPreloaded)
         }
+        
         return true
     }
 
@@ -61,7 +62,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 for item in items {
                     let menuItem = NSEntityDescription.insertNewObject(forEntityName: DATBASE.CityEntityName, into: managedObjectContext) as! City
-                    menuItem.name = item.name
+                    menuItem.countryId = item.countryId
+                    menuItem.name = item.name                    
                     do{
                         try managedObjectContext.save()
                     }catch{

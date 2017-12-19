@@ -38,8 +38,15 @@
                             <constraint firstItem="BIS-XJ-qyd" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="tVt-SF-sKh"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Home" id="G1S-CV-ANU"/>
+                    <navigationItem key="navigationItem" title="Home" id="G1S-CV-ANU">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Sort" id="osw-so-JHq">
+                            <connections>
+                                <action selector="btnSortAction:" destination="BYZ-38-t0r" id="xRc-r3-gp2"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="buttonSort" destination="osw-so-JHq" id="GZv-rY-crr"/>
                         <outlet property="tableviewHome" destination="BIS-XJ-qyd" id="NBx-FL-Now"/>
                     </connections>
                 </viewController>

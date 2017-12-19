@@ -14,13 +14,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     //MARK:- Properties
     @IBOutlet weak var tableviewHome: UITableView!
     fileprivate var arrayCity:[City] = []
+    @IBOutlet weak var buttonSort: UIBarButtonItem!
 
     //MARK:- View life cycle method
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setUpUIElements()
         loadDataFromDatabase()
+        setUpUIElements()
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,6 +32,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //Initial UI set up will be done in this method
     private func setUpUIElements(){
+        buttonSort.isEnabled = arrayCity.count > 0 ? true : false
+        
         tableviewHome.estimatedRowHeight = 50.0
         tableviewHome.rowHeight = UITableViewAutomaticDimension
     }
@@ -47,6 +50,32 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
 
+    // MARK: - IBActions
+    @IBAction func btnSortAction(_ sender: UIBarButtonItem) {
+        let actionSheet = UIAlertController(title: "Sort by population", message: nil, preferredStyle: .actionSheet)
+        
+        //Use weak self to avoid retain cycle
+        let buttonAscending = UIAlertAction(title: "Ascending", style: .default) { [weak self]action in
+            self?.arrayCity.sort{ $0.countryId! < $1.countryId! }
+            self?.tableviewHome.reloadData()
+        }
+        
+        let buttonDescending = UIAlertAction(title: "Descending", style: .default) { [weak self]action in
+            self?.arrayCity.sort{ $0.countryId! > $1.countryId! }
+            self?.tableviewHome.reloadData()
+        }
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+            
+        }
+        
+        actionSheet.addAction(buttonAscending)
+        actionSheet.addAction(buttonDescending)
+        actionSheet.addAction(cancel)
+        self.present(actionSheet, animated: true, completion: nil)
+    }
+    
+    
     // MARK: - Table view data source
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -71,6 +100,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         cell?.textLabel?.text = cityData.name
         return cell!
     }
-    
+        
 }
 
